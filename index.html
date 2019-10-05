@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="solution.js"></script>
+    <script>
+        window.onload = function () {
+            const rootNode = document.createElement('DIV');
+            document.body.appendChild(rootNode);
+
+            const virtualDOM = new VirtualDOM();
+            const rootVNode =
+                virtualDOM.create('DIV', null, [
+                    virtualDOM.create('SPAN',
+                        {style: 'color: red;'},
+                        ['Span']),
+                    virtualDOM.create('BUTTON',
+                        {disabled: true},
+                        ['Button'])
+                ]);
+
+            virtualDOM.update(rootNode, rootVNode);
+
+
+            const arootNode = document.body.querySelector('div');
+
+            rootVNode.children.push(
+                virtualDOM.create('BUTTON',
+                    {disabled: false},
+                    ['Button 2'])
+            );
+
+            virtualDOM.update(arootNode, rootVNode);
+
+            rootVNode.children.unshift(
+                virtualDOM.create('BUTTON',
+                    {disabled: false},
+                    ['Button 0'])
+            );
+
+            virtualDOM.update(arootNode, rootVNode);
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
